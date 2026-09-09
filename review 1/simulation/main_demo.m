@@ -11,6 +11,7 @@ fprintf('P(unexpected event): %.4f\n\n', P_event);
 
 T = 500;
 policies = {'round-robin', 'always-comm', 'always-radar'};
+G_values = zeros(numel(policies), 1);
 
 for k = 1:numel(policies)
     policy = policies{k};
@@ -32,9 +33,16 @@ for k = 1:numel(policies)
     end
 
     G = discounted_return(rewards, p.gamma);
+    G_values(k) = G;
     fprintf('[%-12s] total reward = %8.2f | discounted return G = %8.2f | mean queue d = %5.2f | events = %d/%d\n', ...
         policy, sum(rewards), G, mean(d_trace), sum(events), T);
 end
+
+figure;
+bar(G_values);
+set(gca, 'XTickLabel', policies);
+ylabel('discounted return G(\pi)');
+title('Baseline policy comparison');
 
 s = [0 0 0 0 0 0];
 rewards = zeros(T,1);
