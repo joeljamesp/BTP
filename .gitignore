@@ -1,4 +1,13 @@
-# LaTeX build artifacts
+# Only track the review 1 folder and the top-level docs — everything else
+# (meeting notes, archive, old research PDFs) stays local, out of the repo.
+*
+
+!/review 1/
+!/review 1/**
+!/README.md
+!/.gitignore
+
+# LaTeX build artifacts, even inside tracked folders
 *.aux
 *.log
 *.out

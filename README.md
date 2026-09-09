@@ -2,8 +2,7 @@
 
 This is my (Joel James P, with Syeda Majida Bee) Bachelor Thesis Project at IIIT
 Kottayam, under internal guide Dr. Ananth A and external guide Dr. Pradyumna Kumar
-Bishoyi. The repo tracks everything from the first paper read-through to the final
-defense — meeting notes, the Review 1 presentation, and the simulation code.
+Bishoyi.
 
 ## What the project is actually about
 
@@ -24,31 +23,20 @@ underneath) that stays safety-dominant the whole way through. Dr. Pradyumna's
 feedback after our first discussion is what pushed the scheduling/QoS angle and
 the hierarchical MAB direction specifically.
 
-## Where things live
+## Repo layout
 
-- `meeting 1/`, `meeting 2/`, `meeting 3/` — notes and slides from early
-  paper-reading sessions with the guides, in roughly chronological order.
-- `docs/iRDRC_Deep_Understanding.md` — a from-scratch, worked-through explanation
-  of the base paper's Sections I–III (motivation, system model, the MDP
-  formulation up through the reward function and discounted return), written for
-  our own study, not copied from the paper.
-- `review 1/` — the Beamer deck for BTP Review 1: `review1_presentation.tex` is
-  the source, `review1_presentation.pdf` is the built output. The
-  `architecture/` subfolder has the proposed-system architecture diagram and the
-  prompt used to generate it.
-- `simulation/` — MATLAB implementation of the base paper's environment: state
-  space, action space, the event-probability model (eq. 1), the reward function
-  (eq. 3), and the discounted-return objective (eq. 4). This is Phase 1 only —
-  the environment itself, stopping right before the DQN algorithm from Section
-  IV. `main_demo.m` runs a few naive policies (round-robin, always-communicate,
-  always-radar) through it as a sanity check.
-- `archive/` — older candidate BTP topics (audio codec work, modulation
-  classification) that got explored before we settled on this direction. Kept
-  around, not part of the current project.
-- Root-level PDFs (`irdrc_explanation.pdf`, `irdrc_worked_example.pdf`,
-  `irdrc_novelty_mapping.pdf`, etc.) and `files/` are working documents from the
-  literature-review and novelty-verification pass before locking in the research
-  gap.
+```
+review 1/
+  simulation/     MATLAB implementation of the base paper's environment —
+                  state space, action space, event-probability model (eq. 1),
+                  reward function (eq. 3), discounted-return objective (eq. 4).
+                  Phase 1 only: the environment itself, stopping right before
+                  the DQN algorithm from Section IV.
+  presentation/   The Beamer deck for BTP Review 1: review1_presentation.tex
+                  is the source, review1_presentation.pdf is the built output.
+                  architecture/ has the proposed-system architecture diagram
+                  and the prompt used to generate it.
+```
 
 ## Where things stand
 
@@ -70,13 +58,13 @@ the hierarchical MAB direction specifically.
 The presentation is a standard `pdflatex` Beamer build:
 
 ```
-cd "review 1"
+cd "review 1/presentation"
 pdflatex review1_presentation.tex
 ```
 
 The simulation is plain MATLAB, no toolboxes beyond base MATLAB:
 
 ```
-cd simulation
+cd "review 1/simulation"
 main_demo
 ```
