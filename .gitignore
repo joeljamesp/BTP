@@ -1,9 +1,16 @@
-# Only track the review 1 folder and the top-level docs — everything else
-# (meeting notes, archive, old research PDFs) stays local, out of the repo.
+# Only track: review 1/simulation/** (MATLAB source), the built presentation
+# PDF, and the architecture image. Everything else stays local, out of the repo.
 *
 
 !/review 1/
-!/review 1/**
+!/review 1/simulation/
+!/review 1/simulation/**
+
+!/review 1/presentation/
+!/review 1/presentation/review1_presentation.pdf
+!/review 1/presentation/architecture/
+!/review 1/presentation/architecture/architecture.jpeg
+
 !/README.md
 !/.gitignore
 
