@@ -5,7 +5,7 @@ n = numel(p1v_values);
 
 train_episodes = 800;
 T = 220;
-eval_episodes = 30;
+eval_episodes = 200;
 
 avg_r_dqn = zeros(n, 1);
 avg_r_ql = zeros(n, 1);
@@ -39,6 +39,8 @@ ylabel('Average reward');
 title('Fig. 2(b) reproduction: Average reward vs. p_1^v');
 legend('DQN', 'Q-learning', 'Round-robin', 'Location', 'best');
 grid on;
+xlim([0.1 1]);
+ylim([-600 600]);
 
 saveas(gcf, 'fig2b_reward_vs_p1v.jpeg');
 fprintf('Saved fig2b_reward_vs_p1v.jpeg\n');
