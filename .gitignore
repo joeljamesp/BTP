@@ -12,7 +12,18 @@
 !/review 1/presentation/architecture/architecture.jpeg
 
 !/simulation 26-09/
-!/simulation 26-09/*.m
+!/simulation 26-09/fig2a_simulation/
+!/simulation 26-09/fig2a_simulation/*.m
+!/simulation 26-09/fig2a_simulation/*.jpeg
+!/simulation 26-09/fig2b_simulation/
+!/simulation 26-09/fig2b_simulation/*.m
+!/simulation 26-09/fig2b_simulation/*.jpeg
+!/simulation 26-09/fig2c_simulation/
+!/simulation 26-09/fig2c_simulation/*.m
+!/simulation 26-09/fig2c_simulation/*.jpeg
+!/simulation 26-09/fig2d_simulation/
+!/simulation 26-09/fig2d_simulation/*.m
+!/simulation 26-09/fig2d_simulation/*.jpeg
 
 !/README.md
 !/.gitignore

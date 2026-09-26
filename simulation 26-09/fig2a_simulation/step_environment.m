@@ -22,7 +22,7 @@ m_next = double(rand() < (1 - p.tau_m));
 
 s_next = [d_next c_next r_next w_next v_next m_next];
 
-P_event = event_probability(p);
+P_event = state_event_probability(r, w, v, m, p);
 event_occurred = rand() < P_event;
 b = r + w + v + m;
 
