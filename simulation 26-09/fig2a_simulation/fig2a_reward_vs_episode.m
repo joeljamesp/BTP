@@ -3,11 +3,11 @@ clear; clc; rng(1);
 p = params();
 
 episodes = 2500;
-T = 300;
+T = 220;
 smooth_win = 61;
 
 fprintf('Training Q-learning (%d episodes x %d steps)...\n', episodes, T);
-[~, r_ql] = qlearning_train(p, episodes, T, 0.1);
+[~, r_ql] = qlearning_train(p, episodes, T, 0.02);
 
 fprintf('Training DQN (%d episodes x %d steps)...\n', episodes, T);
 opts.seed = 1;
