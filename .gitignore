@@ -11,6 +11,9 @@
 !/review 1/presentation/architecture/
 !/review 1/presentation/architecture/architecture.jpeg
 
+!/simulation 26-09/
+!/simulation 26-09/*.m
+
 !/README.md
 !/.gitignore
 
