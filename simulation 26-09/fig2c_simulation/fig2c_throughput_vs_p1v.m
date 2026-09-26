@@ -4,8 +4,8 @@ p1v_values = 0.1:0.1:1;
 n = numel(p1v_values);
 
 train_episodes = 800;
-T = 300;
-eval_episodes = 30;
+T = 220;
+eval_episodes = 200;
 
 thr_dqn = zeros(n, 1);
 thr_ql = zeros(n, 1);
@@ -17,7 +17,7 @@ for i = 1:n
 
     fprintf('p1_v = %.1f ... ', p.p1_v);
 
-    [Q, ~] = qlearning_train(p, train_episodes, T, 0.1);
+    [Q, ~] = qlearning_train(p, train_episodes, T, 0.02);
     thr_ql(i) = eval_qtable_metrics(Q, p, eval_episodes, T);
 
     opts = struct('seed', i);
