@@ -1,0 +1,4 @@
+policy       |       base G      novel G |   base total  novel total |  dl misses     mean u
+round-robin  |      -138.32        31.71 |      -454.00       -77.72 |          0      0.199
+always-comm  |      -131.90      -296.08 |      -911.00     -1792.00 |          0      0.988
+always-radar |       134.39        72.77 |       535.00        78.76 |         83      0.080
