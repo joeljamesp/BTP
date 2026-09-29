@@ -28,6 +28,7 @@
 !/novel_reward_simulation/
 !/novel_reward_simulation/*.m
 !/novel_reward_simulation/*.jpeg
+!/novel_reward_simulation/README.md
 !/novel_reward_simulation/results/
 !/novel_reward_simulation/results/*.jpeg
 !/novel_reward_simulation/results/*.txt
