@@ -32,7 +32,7 @@ for k = 1:n
 
     rng(10 + k);
     s = [0 0 0 0 0 0];
-    aux.u = 0; aux.pri = pn.pri_levels(randi(numel(pn.pri_levels))); aux.dl = pn.dl_max;
+    aux.u = 0; aux.pri = pn.pri_levels(randi(numel(pn.pri_levels))); aux.dl = pn.dl_by_pri(aux.pri);
     rewards = zeros(T,1);
     u_trace = zeros(T,1);
     misses = false(T,1);

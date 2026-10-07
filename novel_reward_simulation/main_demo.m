@@ -16,7 +16,7 @@ G_values = zeros(numel(policies), 1);
 for k = 1:numel(policies)
     policy = policies{k};
     s = [0 0 0 0 0 0];
-    aux.u = 0; aux.pri = p.pri_levels(randi(numel(p.pri_levels))); aux.dl = p.dl_max;
+    aux.u = 0; aux.pri = p.pri_levels(randi(numel(p.pri_levels))); aux.dl = p.dl_by_pri(aux.pri);
     rewards = zeros(T,1);
     d_trace = zeros(T,1);
     u_trace = zeros(T,1);
@@ -50,7 +50,7 @@ ylabel('discounted return G(\pi)');
 title('Baseline policy comparison, novel reward function');
 
 s = [0 0 0 0 0 0];
-aux.u = 0; aux.pri = p.pri_levels(randi(numel(p.pri_levels))); aux.dl = p.dl_max;
+aux.u = 0; aux.pri = p.pri_levels(randi(numel(p.pri_levels))); aux.dl = p.dl_by_pri(aux.pri);
 rewards = zeros(T,1);
 d_trace = zeros(T,1);
 u_trace = zeros(T,1);

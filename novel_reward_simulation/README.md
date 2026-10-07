@@ -3,9 +3,12 @@
 This folder implements our proposed extension to the iRDRC MDP's reward
 function, as introduced on the "Proposed Direction" and "Architecture
 Explained" slides of `review 1/presentation/review1_presentation.pdf`. It
-keeps the base paper's state space, action space, and transition model
-exactly as they are — only the reward function `R` is extended, so this is a
-same-tuple, updated-`R` variant of the base paper's MDP, not a redesign of it.
+keeps the base paper's state space (352 states) and action space exactly as
+they are, and extends only the reward function `R`. One environment change
+sits outside the reward: the event probability now depends on the current
+risk factors (`state_event_probability.m`) instead of a constant; its long-run
+average still equals the paper's 0.1002. So this is a same-state/same-action,
+updated-`R` variant of the base paper's MDP, not a redesign of it.
 
 ## What's new here vs. the base paper
 
@@ -29,11 +32,13 @@ original four:
   doesn't sense, and gets pulled down whenever radar is used, hazard or not.
   The radar action earns `+r5 * (u - u_next)`, rewarding it for actually
   reducing uncertainty, not just for catching hazards.
-- **Priority- and deadline-aware penalty (`r6`):** the base paper treats every
-  packet in the queue as interchangeable. Here the head-of-queue packet
-  carries a priority level and a deadline countdown; if it expires unserved,
-  the step is penalized `-r6 * priority`, scaled by how urgent the dropped
-  packet was.
+- **Priority- and deadline-aware penalty (three tiers):** the base paper
+  treats every packet in the queue as interchangeable. Here the head-of-queue
+  packet belongs to one of three priority tiers, and each tier has its own
+  deadline and its own penalty if missed: `dl_by_pri = [10 6 3]` steps and
+  `pen_by_pri = [4 8 12]`, so more urgent packets get a shorter deadline and
+  a heavier penalty. If the deadline expires unserved, the step is penalized
+  `-pen_by_pri(priority)`. (Starting values, not tuned.)
 
 `r3` (the hazard-miss penalty) is left untouched and still dominates both new
 terms by construction, so "safety first" from the base paper still holds —
@@ -42,8 +47,8 @@ the novelty adds new things to optimize for, it doesn't dilute the old one.
 ## Files
 
 ```
-params.m                   base paper's constants + the new r5/r6/uncertainty/
-                            deadline parameters
+params.m                   base paper's constants + the new r5/uncertainty
+                            parameters and the per-tier dl_by_pri/pen_by_pri
 state_space.m               same 352-state space as the base paper
 event_probability.m         base paper's marginal P(⊕) formula (eq. 1), kept
                             for the state-space/sanity check in main_demo.m
@@ -51,7 +56,7 @@ state_event_probability.m   state-conditional P(⊕), used inside step_environme
                             so the event probability actually depends on the
                             current risk state instead of being a constant
 novel_reward_function.m     the extended reward: base 5 cases + r5 (dual-role
-                            radar) + r6 (deadline/priority penalty)
+                            radar) + per-tier deadline/priority penalty
 step_environment.m          one environment step: advances the queue, channel,
                             risk factors, belief uncertainty, and packet
                             deadline, then scores it with novel_reward_function.m
@@ -93,15 +98,21 @@ results/comparison_summary.txt             the raw numbers behind every chart
 ```
 
 What it shows: under the base reward, always-radar is the best-scoring naive
-policy and round-robin is negative. Under the novel reward, round-robin's
-score flips positive (it now gets credited for the uncertainty it resolves by
-sensing regularly), and always-radar's score drops sharply once its habit of
-starving the queue starts costing it 83/500 deadline misses. Round-robin and
-always-comm still show zero deadline misses — because they still leave the
-queue open often enough to serve the head-of-queue packet before its deadline
-expires — which is exactly the throughput/uncertainty/urgency trade-off a
-learned policy (Phase 3) needs to resolve, rather than something any fixed
-policy can satisfy by construction.
+policy by far. Under the novel reward, always-radar's score collapses once
+its habit of starving the queue costs it roughly 78 expired packets per 500
+steps. Round-robin and always-comm score slightly worse than under the base
+reward, because the short urgent deadline (3 steps) now catches them too.
+
+Caveats: (1) the saved charts are a single run per policy, and the "base"
+side of `compare_with_base.m` still uses the older constant-probability
+environment, so the two sides differ in more than the reward. A matched
+comparison (both rewards on the same state-dependent environment, 200
+seeds, 500 steps) gave, base to novel total reward: round-robin -488 to -535,
+always-comm -1624 to -1695, always-radar +673 to +46. (2) The head-of-queue
+packet is a placeholder, not a tracked packet: its timer runs even when the
+queue is empty, so policies that keep the queue empty still show some
+expired packets. (3) The weights and per-tier values are hand-picked and no
+learned agent has been trained on this reward yet (Phase 3).
 
 ## Running it
 

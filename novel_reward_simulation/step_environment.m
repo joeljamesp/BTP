@@ -38,7 +38,7 @@ deadline_expired = (dl_next <= 0) && ~served;
 
 if served || deadline_expired
     pri_next = p.pri_levels(randi(numel(p.pri_levels)));
-    dl_next = p.dl_max;
+    dl_next = p.dl_by_pri(pri_next);
 else
     pri_next = aux.pri;
 end

@@ -20,7 +20,7 @@ else
 end
 
 if deadline_expired
-    r_t = r_t - p.r6 * pri;
+    r_t = r_t - p.pen_by_pri(pri);
 end
 
 end

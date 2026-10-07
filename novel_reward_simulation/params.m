@@ -29,8 +29,8 @@ p.r5 = 3;
 p.u_growth = 0.08;
 p.u_decay = 0.5;
 
-p.r6 = 4;
-p.dl_max = 6;
 p.pri_levels = [1 2 3];
+p.dl_by_pri  = [10 6 3];
+p.pen_by_pri = [4 8 12];
 
 end
